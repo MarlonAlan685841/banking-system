@@ -43,37 +43,24 @@ Define a conexão com o PostgreSQL (URL, usuário e senha).
 ### 🏦 Estrutura do Banco de Dados
 
 ```sql
-CREATE TABLE contas (
-    id_conta SERIAL PRIMARY KEY,
-    nome_titular VARCHAR(100) NOT NULL,
-    senha VARCHAR(255) NOT NULL,
-    saldo DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
-    CONSTRAINT chk_saldo CHECK (saldo >= 0)
-);
-CREATE TABLE transacoes (
+CREATE TABLE IF NOT EXISTS contas (
+                id_conta SERIAL PRIMARY KEY,
+                nome_titular VARCHAR(100) NOT NULL,
+                senha VARCHAR(255) NOT NULL,
+                saldo DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+                CONSTRAINT chk_saldo CHECK (saldo >= 0));
+								
+CREATE TABLE IF NOT EXISTS transacoes (
     id_transacao SERIAL PRIMARY KEY,
     id_conta INT REFERENCES contas(id_conta),
-    tipo VARCHAR(20) NOT NULL,
+    tipo VARCHAR(255) NOT NULL,
     valor DECIMAL(10, 2) NOT NULL,
     data_transacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    id_conta_destino INT REFERENCES contas(id_conta) NULL
-);
+    id_conta_destino INT REFERENCES contas(id_conta) NULL);	
 ```
 
 - `contas`: Armazena informações das contas (ID, nome, senha hasheada, saldo).
 - `transacoes`: Registra histórico de operações, incluindo transferências com conta de destino.
-
----
-
-### 🛠️ Inicialização do Banco
-
-```java
-public void initializeDatabase() throws SQLException {
-    // Cria tabelas contas e transacoes se não existirem
-}
-```
-
-O método em `ContaDAO` cria as tabelas automaticamente ao iniciar o programa.
 
 ---
 
