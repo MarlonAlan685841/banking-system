@@ -1,0 +1,16 @@
+SQL da criação do Banco
+
+CREATE TABLE IF NOT EXISTS contas (
+                id_conta SERIAL PRIMARY KEY,
+                nome_titular VARCHAR(100) NOT NULL,
+                senha VARCHAR(255) NOT NULL,
+                saldo DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+                CONSTRAINT chk_saldo CHECK (saldo >= 0));
+								
+CREATE TABLE IF NOT EXISTS transacoes (
+    id_transacao SERIAL PRIMARY KEY,
+    id_conta INT REFERENCES contas(id_conta),
+    tipo VARCHAR(255) NOT NULL,
+    valor DECIMAL(10, 2) NOT NULL,
+    data_transacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    id_conta_destino INT REFERENCES contas(id_conta) NULL);					
