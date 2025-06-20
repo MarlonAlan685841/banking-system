@@ -10,10 +10,6 @@ O programa é composto por:
 - **Acesso ao Banco**: `ContaDAO.java` (gerencia operações no PostgreSQL)
 - **Modelo de Dados**: `Conta.java` (representa uma conta bancária)
 - **Script SQL**: `create_database.sql` (cria o banco de dados)
-
-👉 **Baixe este README**: [README.md](https://raw.githubusercontent.com/seu_usuario/banking-system/main/README.md)  
-👉 **Baixe o projeto completo**: [banking-system.zip](https://github.com/seu_usuario/banking-system/archive/refs/heads/main.zip)
-
 ---
 
 ## 📋 Regras do Sistema
